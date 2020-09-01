@@ -191,7 +191,6 @@ const fs_1 = __webpack_require__(747);
 const core = __importStar(__webpack_require__(470));
 const graphql_1 = __webpack_require__(898);
 /** template strings */
-const IGNORE_LANGS = ["HTML", "CSS", "Makefile"]
 var TPL_STR;
 (function (TPL_STR) {
     TPL_STR["LANGUAGE_TEMPLATE_START"] = "LANGUAGE_TEMPLATE_START";
@@ -383,9 +382,6 @@ function getLanguages(repositories, max) {
     const languages = new Map();
     for (const repo of repositories) {
         for (const lang of repo.languages.edges) {
-			if (IGNORE_LANGS.includes(lang.node.name))
-				continue
-
             const existing = languages.get(lang.node.name);
             if (existing) {
                 existing.size += lang.size;

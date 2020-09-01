@@ -2,8 +2,6 @@ import { promises as fs } from 'fs'
 import * as core from '@actions/core'
 import { graphql } from '@octokit/graphql'
 
-const IGNORE_LANGS = ["HTML", "CSS", "Makefile"]
-
 /** template strings */
 enum TPL_STR {
     LANGUAGE_TEMPLATE_START = 'LANGUAGE_TEMPLATE_START',
@@ -308,10 +306,7 @@ function getLanguages(repositories: Repository[], max: number) {
     const languages = new Map<string, Language>()
 
     for (const repo of repositories) {
-        for (const lang of repo.languages.edges) {
-            if (IGNORE_LANGS.includes(lang.node.name))
-                continue
-                
+        for (const lang of repo.languages.edges) {                
             const existing = languages.get(lang.node.name)
             if (existing) {
                 existing.size += lang.size
